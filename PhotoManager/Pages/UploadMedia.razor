@@ -1,0 +1,40 @@
+﻿@page "/upload"
+
+<PageTitle>Upload Media</PageTitle>
+
+<InputFile OnChange="OnFileChanged" multiple></InputFile>
+<pre>@status</pre>
+
+@code {
+    string? status;
+
+    async Task OnFileChanged(InputFileChangeEventArgs e)
+    {
+        status += "\nChanged";
+        try
+        {
+            //var buffer = new byte[4096];
+            var files = e.FileCount > 1 ? e.GetMultipleFiles(e.FileCount).ToList() : new List<IBrowserFile>() { e.File };
+            foreach (var file in files)
+            {
+                //status += "\nReading file: " + file.Name;
+                //_ = InvokeAsync(StateHasChanged);
+
+                //using var stream = file.OpenReadStream(maxAllowedSize: long.MaxValue);
+                //while (true)
+                //{
+                //    var read = await stream.ReadAsync(buffer);
+                //    if (read == 0)
+                //        break;
+                //}
+
+                file.
+            }
+        }
+        catch (Exception ex)
+        {
+            status += "\nError: " + ex.Message;
+            _ = InvokeAsync(StateHasChanged);
+        }
+    }
+}

@@ -1,0 +1,55 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using PhotoManager.Models
+@inject DataContext Data
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (Media == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Photo Id</th>
+                <th>Time Added</th>
+                <th>Path</th>
+                <th>Hash</th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Time Taken</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var media in Media)
+            {
+                <tr>
+                    <td>@media.PhotoId</td>
+                    <td>@media.AddTime</td>
+                    <td>@media.Path</td>
+                    <td>@media.Hash</td>
+                    <td>@media.Width</td>
+                    <td>@media.Height</td>
+                    <td>@media.TakenTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Photo[] Media;
+
+    protected override Task OnInitializedAsync()
+    {
+        Media = Data.Photo.ToArray();
+        return Task.CompletedTask;
+    }
+}
